@@ -1,0 +1,41 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+profiles:
+  - name: dev
+    activation:
+      - command: dev
+    build:
+      artifacts:
+        - image: registry.dudaji.org/huhuta/capture-trigger
+          sync:
+            manual:
+              - src: "src/**/*.js"
+                dest: .
+    deploy:
+      helm:
+        releases:
+          - name: capture-trigger
+            namespace: office
+            chartPath: k8s/helm
+            setValueTemplates:
+              image.repository: "{{.IMAGE_NAME}}"
+              image.tag: "{{.DIGEST}}"
+            valuesFiles:
+              - k8s/values.yaml
+  - name: run
+    activation:
+      - command: run
+    build:
+      artifacts:
+        - image: registry.dudaji.org/huhuta/capture-trigger
+    deploy:
+      helm:
+        releases:
+          - name: capture-trigger
+            namespace: office
+            chartPath: k8s/helm
+            setValueTemplates:
+              image.repository: "{{.IMAGE_NAME}}"
+              image.tag: "{{.DIGEST}}"
+            valuesFiles:
+              - k8s/values.yaml

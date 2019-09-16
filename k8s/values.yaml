@@ -1,0 +1,12 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: capture-trigger.dudaji.org
+      paths:
+        - '/'
+  annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+  tls:
+  - hosts:
+      - "*.dudaji.org"
