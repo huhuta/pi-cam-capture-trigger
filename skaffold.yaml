@@ -36,6 +36,6 @@ profiles:
             chartPath: k8s/helm
             setValueTemplates:
               image.repository: "{{.IMAGE_NAME}}"
-              image.tag: "{{.DIGEST}}"
+              image.tag: "{{.DIGEST_HEX}}"
             valuesFiles:
               - k8s/values.yaml

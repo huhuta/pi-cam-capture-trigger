@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const compression = require('compression')
 const helmet = require('helmet')
 const cors = require('cors')
-const api = require('./api/index')
+const api = require('./api')
 const { logger, productionErrors } = require('./util')
 
 const app = express()
